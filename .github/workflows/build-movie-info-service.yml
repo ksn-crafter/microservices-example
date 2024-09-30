@@ -2,6 +2,17 @@ name: Build movie-info-service
 
 on:
   workflow_dispatch:
+    inputs: 
+      service:
+        description: 'Service to be built'
+        required: true
+        type: choice
+        default: 'movie-info-service'
+        options:
+          - 'movie-info-service'
+          - 'ratings-data-service'
+          - 'movie-catalog-service'
+          - 'discovery-service'
   push:
     branches:
       - 'main'
@@ -20,13 +31,13 @@ jobs:
         distribution: 'temurin'
         
     - name: Build with Maven
-      run: cd movie-info-service && mvn -B clean package
+      run: cd ${{ inputs.service }} && mvn -B clean package
       
     - name: Copy the jar file into a temp directory
-      run: mkdir temp && cp movie-info-service/target/*.jar temp
+      run: mkdir temp && cp ${{ inputs.service }}/target/*.jar temp
       
     - name: Upload the artifact
       uses: actions/upload-artifact@v4
       with:
-       name: movie-info-service
+       name: ${{ inputs.service }}
        path: temp
