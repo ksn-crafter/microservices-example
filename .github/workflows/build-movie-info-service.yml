@@ -1,4 +1,4 @@
-name: Build movie-info-service
+name: Build micro service
 
 on:
   workflow_dispatch:
