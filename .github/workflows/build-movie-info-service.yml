@@ -13,9 +13,6 @@ on:
           - 'ratings-data-service'
           - 'movie-catalog-service'
           - 'discovery-service'
-  push:
-    branches:
-      - 'main'
   
       
 jobs:
